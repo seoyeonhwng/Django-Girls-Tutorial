@@ -7,16 +7,12 @@
             <h1><a href="">seoyeon blog</a></h1>
         </div>
 
+        {% for post in posts %}
         <div>
-            <p>published : 2021-01-03 </p>
-            <h2><a href="">My first post</a></h2>
-            <p>파이썬 마스터가 될테야</p>
+            <p>published: {{ post.publisehd_date }}</p>
+            <h1><a href="">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
         </div>
-
-        <div>
-            <p>published : 2021-01-04</p>
-            <h2><a href="">My second post</a></h2>
-            <p>스눕이는 대박날꺼야</p>
-        </div>
+        {% endfor %}
     </body>
 </html>
