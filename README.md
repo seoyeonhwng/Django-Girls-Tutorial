@@ -110,3 +110,15 @@ Django Girls Tutorial을 따라하면서 공부한 내용을 정리합니다.
 ## 장고 관리자
 * 모델링한 글들을 장고 관리자에서 추가, 수정, 삭제 가능
 * 모든 권한을 가지는 슈퍼 사용자 생성 -> python manage.py createsuperuser
+
+## 장고 urls
+* url은 웹 주소
+* 인터넷의 모든 페이지는 고유한 URL을 가지고 있음
+* URLconf는 장고에서 URL과 일치하는 뷰를 찾기 위한 패턴들의 집합
+* mysite/urls.py에 include('blog.urls') 추가
+* blog/urls.py에 urlpattern 추가
+
+## 장고 뷰
+* 뷰는 애플리케이션의 로직을 넣는 곳
+* 모델에서 필요한 정보를 받아와서 템플릿에 전달하는 역할
+* 장고 템플릿 양식은 HTML을 사용
