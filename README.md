@@ -135,19 +135,7 @@ urlpatterns = [
     path('', views.post_list, name='post_list'),
 ]
 ```
-
-## 7. 장고 뷰(View)
-* 뷰는 어플리케이션의 로직을 넣는 곳
-* 모델에서 필요한 정보를 받아와서 템플릿(html)에 전달하는 역할
-
-* post_list라는 뷰 선언
-```
-# post 모델에서 필요한 정보를 받아와서 post_list.html에 전달
-def post_list(request):
-    return render(request, 'blog/post_list.html', {})
-```
-
-## 8. 장고 ORM과 쿼리셋(QuerySets)
+## 7. 장고 ORM과 쿼리셋(QuerySets)
 * 쿼리셋(QuerySet)은 전달받은 모델의 객체 목록
 * 데이터베이스로부터 데이터를 읽고, 필터를 걸거나 정렬을 할 수 있음
 
@@ -156,4 +144,30 @@ def post_list(request):
 3. 필터링하기 ```Post.objects.filter(title__contains='title')```
 4. 정렬하기 ```Post.objects.order_by('created_date')```
 5. 쿼리셋 연결하기 ```Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')```
+
+
+## 8. 장고 뷰(View)
+* 뷰는 어플리케이션의 로직을 넣는 곳
+* 모델에서 필요한 정보를 받아와서 템플릿(html)에 전달하는 역할
+
+* post_list라는 뷰 선언
+```
+def post_list(request):
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'blog/post_list.html', {'posts': posts})
+```
+  * Post모델에서 원하는 객체만 필터링하고 템플릿(post_list.html)에게 posts라는 변수로 넘겨줌
+  
+## 9. 장고 템플릿
+* 템플릿 태그는 파이썬을 HTML로 바꿔주어 브라우저가 파이썬 코드를 이해할 수 있게 함
+* HTML에 탬플릿 코드를 사용하여 view에서 넘겨준 posts 변수를 사용
+```
+{% for post in posts %}
+    <div>
+        <p>published: {{ post.published_date }}</p>
+        <h1><a href="">{{ post.title }}</a></h1>
+        <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+{% endfor %}
+```
 
