@@ -1,5 +1,5 @@
 # Django-Girls-Tutorial
-Django Girls Tutorial을 따라하면서 공부한 내용을 정리합니다.
+Django Girls Tutorial을 따라하면서 장고의 개념 위주로 정리한 내용입니다.
 
 ## 인터넷은 어떻게 작동할까요?
 * 웹페이지란 동영상, 음악, 사진같은 파일 + HTML로 구성된 문서
@@ -25,22 +25,19 @@ Django Girls Tutorial을 따라하면서 공부한 내용을 정리합니다.
   2. 해당 IP주소로 데이터 패킷을 전송
   3. 이 데이터 패킷은 수많은 라우터를 거쳐서 djangogirls.org가 저장된 웹서버인 최종 목적지에 도달
   4. 웹서버에서는 저장된 djangogirls.org를 전송
-
-* 장고는 4번 과정에서 모든 사람이 같은 내용을 받는 것이 아니라, 받는 사람마다 각각 다른 내용을 받도록하는 역할!
+   - 장고는 받는 사람마다 각각 다른 내용을 받도록하는 역할
  
 ## 장고란 무엇인가요?
-* 장고는 파이썬으로 만들어진 무료 오픈소스 웹 어플리케이션 프레임워크
-* 쉽고 빠르게 웹사이트를 개발할 수 있도록 돕는 구성요소로 이루어진 웹 프레임워크
-* 웹사이트를 구축할때는 비슷한 유형의 요소들이 항상 필요함 ex) 회원가입, 로그인, 로그아웃과 같은 사용자 인증
-* 이러한 요소들을 바로 구성할 수 있게 만들어두었다
-* 웹 서버가 요청에 맞는 응답을 보낼때 장고가 응답의 내용을 만드는 역할
+* 파이썬으로 만들어진 무료 오픈소스 웹 어플리케이션 프레임워크
+* 장고를 사용하면 웹사이트를 구축할때 필요한 요소를 쉽고 빠르게 구축할 수 있음
 
-* 웹 서버에 요청이 오면 장고로 전달됨
-* 장고 urlresolver는 웹 페이지의 주소를 가져와서 무엇을 할지 확인함
-* urlresolver는 패턴 목록을 가져와 URL과 맞는지 처음부터 하나씩 대조해서 식별
-* 만약 일치하는 패턴이 있으면 장고는 해당 요청을 관련된 함수(view)에 넘겨줌
-* 집배원이 주소와 번지가 일치하는 집에 편지를 배달하듯이! urlresolver = 집배원
-* view함수에서 요청을 처리하고 응답을 생성하면 장고는 그 응답을 사용자의 웹 브라우저에 보내주는 역할을 한다
+* 장고가 하는 일
+  1. 웹서버에 요청이 오면 장고로 전달됨
+  2. 장고의 urlresolver는 패턴 목록을 가져와서 요청 URL과 하나씩 대조해서 식별
+  3. 만약 일치하는 패턴이 있으면 장고는 해당 요청을 관련 함수(view)로 넘겨줌
+  4. view함수에서 해당 요청을 처리하고 응답을 생성
+  5. 장고가 해당 응답을 사용자의 웹브라우저로 보내줌
+
 
 ## 1. 가상환경에 django 설치하기
  ```
@@ -52,42 +49,28 @@ Django Girls Tutorial을 따라하면서 공부한 내용을 정리합니다.
  pip install django
  ```
  
-## 2. 장고 프로젝트 시작하기
-* 장고의 기본 골격을 만들어주는 스크립트를 실행
+## 2. 장고 프로젝트 만들기
+```django-admin startproject mysite .```
+* 장고의 기본 골격을 만들어주는 스크립트인 django-admin.py 실행
 * 장고에서는 디렉토리와 파일명이 매우 중요함!! (파일명을 변경X, 이동X)
 
-```django-admin startproject mysite .```
-* django-admin.py는 스크립트로 디렉토리와 파일들을 생성
-
+* 장고 프로젝트의 구조
 ```
-- manage.py
+- manage.py # 웹사이트 관리 담당 ex) DB 생성, 웹서버 구동
 - mysite
-  - settings.py
-  - urls.py
+  - settings.py # 웹사이트 설정 ex) 호스트, DB설정
+  - urls.py # urlresolver가 사용하는 패턴 목록 포함
   - wsgi.py
   - __init__.py
 ```
 
-* manage.py는 사이트 관리를 도와주는 역할
-  * 이 스크립트로 데이터베이스를 생성 -> python manage.py migrate
-  * 이 스크립트로 컴퓨터에서 웹 서버 구동 -> python manage.py runserver
-* settings.py는 웹사이트 설정이 있는 파일
-  * TIME_ZONE = 'Asia/Seoul'로 변경 가능
-  * 정적 파일 경로 추가
-  * 호스트 설정
-  * 데이터베이스 설정
-* urls.py는 urlresolver가 사용하는 패턴 목록을 포함하고 있음
+## 3. 장고 어플리케이션 만들기
+* 프로젝트안에 어플리케이션을 만들어줌
+* 여기서 어플리케이션이란 어떤 동작을 하는 웹 어플리케이션을 의미
 
-## 장고 모델
-* 객체(Object)란 속성(properties)과 행위(method)을 모아놓은 것
-
-* 장고 안의 모델은 객체의 특별한 종류
-* 이 모델을 저장하면 그 내용이 데이터베이스에 저장됨
-
-* 어플리케이션 만들기
-  * 프로젝트 내부에 blog라는 별도의 어플리케이션 생성
+* blog라는 애플리케이션 생성
 ``` python manage.py startapp blog```
-* blog 디렉토리의 구조
+* blog의 구조 
 ```
 - blog
   - migrations
@@ -99,33 +82,78 @@ Django Girls Tutorial을 따라하면서 공부한 내용을 정리합니다.
   - views.py
 ```
 * 애플리케이션을 생성한 후 장고에게 사용한다고 알려줘야함
-* mysite/settings.py에 INSTALLED_APPS에 blog를 추가
+  - mysite/settings.py에 INSTALLED_APPS에 blog를 추가
 
-* 블로그 글 모델 만들기
-  * blog/models.py 파일에 선언하여 Model 객체를 생성
-* 데이터베이스에 모델을 위한 테이블 만들기 (Post 모델을 추가)
-  * 장고 모델에 몇가지 변화가 생겼다는 것을 알려줌 -> python manage.py makemigrations blog
-  * 이 변화를 데이터베이스에 반영 -> python manage.py migrate blog
-  
-## 장고 관리자
-* 모델링한 글들을 장고 관리자에서 추가, 수정, 삭제 가능
-* 모든 권한을 가지는 슈퍼 사용자 생성 -> python manage.py createsuperuser
 
-## 장고 urls
-* url은 웹 주소
-* 인터넷의 모든 페이지는 고유한 URL을 가지고 있음
-* URLconf는 장고에서 URL과 일치하는 뷰를 찾기 위한 패턴들의 집합
-* mysite/urls.py에 include('blog.urls') 추가
-* blog/urls.py에 urlpattern 추가
+## 4. Model 만들기
+* 장고에서 model은 파이썬의 객체(property + method)와 같음
+* 하나의 model 클래스는 데이터베이스에서 하나의 테이블에 해
 
-## 장고 뷰
-* 뷰는 애플리케이션의 로직을 넣는 곳
-* 모델에서 필요한 정보를 받아와서 템플릿에 전달하는 역할
-* 장고 템플릿 양식은 HTML을 사용
+* blog/models.py에 필요한 model 객체를 선언
+```python
+from django.conf import settings
+from django.db import models
+from django.utils import timezone
 
-## 장고 ORM과 쿼리셋(QuerySets)
-* 쿼리셋은 전달받은 모델의 객체 목록
-* 쿼리셋은 데이터베이스로부터 데이터를 읽고, 필터를 걸거나 정렬을 할 수 있음
+class Post(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
 
-## 템플릿 동적 데이터
-* view는 모델과 템플릿을 연결하는 역할
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+```
+* 데이터베이스에 새로운 model 반영
+```
+python manage.py makemigrations blog
+python manage.py migrate blog
+```
+
+## 5. 장고 관리자 설정
+* 관리자 페이지에서 모델을 추가하거나 수정, 삭제 가능
+* blog/admin.py에 관리자 페이지에서 보려는 모델 추가
+```
+from django.contrib import admin
+from .models import Post
+
+admin.site.register(Post)
+```python manage.py createsuperuser # 슈퍼사용자 생성
+```
+
+## 6. 장고 urls
+* urls.py에서 요청 URL과 패턴이 일치하는 view 함수를 매칭
+* mysite/urls.py에서 blog.urls를 가져오는 행 추가
+* blog/urls.py에 url pattern 추가
+```
+urlpatterns = [
+    # 장고에게 누군가 웹사이트에 'http://127.0.0.1:8000/' 주소로 들어오면 views.post_list를 보여줘!라는 뜻
+    path('', views.post_list, name='post_list'),
+]
+```
+
+## 7. 장고 뷰(View)
+* 뷰는 어플리케이션의 로직을 넣는 곳
+* 모델에서 필요한 정보를 받아와서 템플릿(html)에 전달하는 역할
+
+* post_list라는 뷰 선언
+```
+# post 모델에서 필요한 정보를 받아와서 post_list.html에 전달
+def post_list(request):
+    return render(request, 'blog/post_list.html', {})
+```
+
+## 8. 장고 ORM과 쿼리셋(QuerySets)
+* 쿼리셋(QuerySet)은 전달받은 모델의 객체 목록
+* 데이터베이스로부터 데이터를 읽고, 필터를 걸거나 정렬을 할 수 있음
+
+1. 모든 객체 조회하기```Post.objects.all()```
+2. 객체 생성하기 ```Post.objects.create(title='Sample title', text='Test')```
+3. 필터링하기 ```Post.objects.filter(title__contains='title')```
+4. 정렬하기 ```Post.objects.order_by('created_date')```
+5. 쿼리셋 연결하기 ```Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')```
+
