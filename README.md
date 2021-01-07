@@ -1,5 +1,5 @@
 # Django-Girls-Tutorial
-Django Girls Tutorial을 따라하면서 장고의 개념 위주로 정리한 내용입니다.
+[Django Girls Tutorial](https://tutorial.djangogirls.org/ko/)을 따라하면서 장고의 개념 위주로 정리한 내용입니다.
 
 ## 인터넷은 어떻게 작동할까요?
 * 웹페이지란 동영상, 음악, 사진같은 파일 + HTML로 구성된 문서
